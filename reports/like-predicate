@@ -1,0 +1,3 @@
+The like predicate is used for searching  and browsing. 
+With browsing by title, the mysql query returns all strings that start with the character selected.
+With searching, the query returns all strings that contain the pattern(s) of the title or director or star first name or star last name. The year must match exactly.

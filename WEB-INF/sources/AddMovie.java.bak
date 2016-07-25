@@ -1,0 +1,195 @@
+
+
+
+import java.io.*;
+import java.net.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class AddMovie extends HttpServlet
+{
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws IOException, ServletException
+    {
+
+        String loginUser = "root";
+        String loginPasswd = "root";
+        String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
+
+        response.setContentType("text/html");    // Response mime type
+
+        // Output stream to STDOUT
+        PrintWriter out = response.getWriter();
+
+
+        try{
+		Class.forName("org.gjt.mm.mysql.Driver");
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+                Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+               // Statement stmt = dbcon.createStatement();
+
+		String title = request.getParameter("title");
+		String year = request.getParameter("year");
+		String director = request.getParameter("director");
+		String star = request.getParameter("star");
+		String genre = request.getParameter("genre");
+		
+
+                out.println("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"reset.css\"><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"><link href='http://fonts.googleapis.com/css?family=Crete+Round' rel='stylesheet' type='text/css'><link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\"><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"><title>FabFlix</title></head><body><header><div class=\"wrapper\"><h1>FabFlix<span class=\"color\">.</span></h1><nav><ul><li><a href=\"dashboard.html\"><i class=\"material-icons\">person</i>Logout</a></li><li><a href=\"dashboardmain.html\"><i class=\"material-icons\">settings</i>Options</a></li></ul></nav></div></header><div id=\"image\"><br><br><br><br><br><h4 align=\"center\">");
+	
+		if(title=="" || title==null|| year=="" || year==null || director=="" || director==null || star=="" || star==null || genre=="" || genre==null){
+			RequestDispatcher rd = request.getRequestDispatcher("movieincorrect.html");
+			rd.forward(request,response);
+		}
+		else{		
+			out.println("Record successfully inserted into database");
+                        out.println("<br><br><br><br>");
+                        out.println("Go to");
+                        out.println("<a href=\"dashboardmain.html\" style=\"color:rgba(255,255,255,255)\">Options</a>");
+		}
+	
+		out.println("</h4><script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script></div></body></html>");
+	
+	
+		dbcon.close();
+	}
+        catch (SQLException ex) {
+                while (ex != null) {
+                	out.println ("SQL Exception:  " + ex.getMessage ());
+                	ex = ex.getNextException ();
+                }  // end while
+        }  // end catch SQLException
+
+        catch(java.lang.Exception ex){
+                out.println("<HTML>" +
+                            "<HEAD><TITLE>" +
+                            "MovieDB: Error" +
+                            "</TITLE></HEAD>\n<BODY>" +
+                            "<P>SQL error in doGet: " +
+                            ex.getMessage() + "</P></BODY></HTML>");
+                return;
+        }
+        
+    }
+
+    public int add_movie(String title, String year, String director, String star, String genre){
+
+        String loginUser = "root";
+        String loginPasswd = "root";
+        String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
+	
+	try{
+		Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+		Statement stmt = dbcon.createStatement();
+		String moviecheck = "select * from movies where title = ?";
+		PreparedStatement pstmt = dbcon.prepareStatement(moviecheck);
+		pstmt.setString(1,title);
+		ResultSet rs = pstmt.executeQuery();
+
+		if(rs.next()){				//if movie exists
+			int movie_id = rs.getInt(1);
+			String starcheck = "select * from stars where last_name = ?";		
+			pstmt = dbcon.prepareStatement(starcheck);
+			pstmt.setString(1,star);
+			ResultSet rs1 = pstmt.executeQuery();	
+			if(rs1.next()){			//if star exists	
+				int star_id = rs1.getInt(1);
+				String starmoviecheck = "select * from stars_in_movies where star_id = ? and movie_id = ?";
+	                        pstmt = dbcon.prepareStatement(starmoviecheck);
+        	                pstmt.setInt(1,star_id);
+				pstmt.setInt(2,movie_id);
+                	        ResultSet rs2 = pstmt.executeQuery();
+				if(!(rs2.next())){	//if there is no link between star and movie
+					String newstarmovie = "insert into stars_in_movies (star_id,movie_id) values('" + star_id + "','" + movie_id +"');";
+					stmt.executeUpdate(newstarmovie);
+				}
+			}
+			else{				//if star doesnot exist
+				String arr[] = star.split(" ");
+				String columns="(first_name,last_name)";
+         			String values;
+         			if(arr.length>1)
+             		    		values="(\""+arr[0]+"\",";
+         			else
+                 			values="(\"\",";
+         			values = values+"\""+arr[1]+"\")";
+				String newstar =  "insert into stars"  + " " + columns + " values " + values +";";
+				stmt.executeUpdate(newstar);
+				String query = "select last_insert_id()";
+				ResultSet rsid = stmt.executeQuery(query);
+				if(rsid.next()){
+					int star_id = rsid.getInt(1);
+					String newstarmovie = "insert into stars_in_movies (star_id,movie_id) values('" + star_id + "','" + movie_id +"');";
+	                                stmt.executeUpdate(newstarmovie);
+				}
+			}
+		}
+		
+		else{
+			String newmovie = "insert into movies (title,year,director) values('" + title + "','" + year + "','" + director + "');";
+			stmt.executeUpdate(newmovie);
+			String query1 = "select last_insert_id();";
+			ResultSet rsid1 = stmt.executeQuery(query1);
+			if(rsid1.next()){
+				int movie_id = rsid1.getInt(1);
+				String starcheck = "select * from stars where last_name = ?";
+	                        pstmt = dbcon.prepareStatement(starcheck);
+        	                pstmt.setString(1,star);
+                	        ResultSet rs1 = pstmt.executeQuery();
+                        	if(rs1.next()){                 //if star exists
+                                	int star_id = rs1.getInt(1);
+	                                String starmoviecheck = "select * from stars_in_movies where star_id = ? and movie_id = ?";
+         	                        pstmt = dbcon.prepareStatement(starmoviecheck);
+                	                pstmt.setInt(1,star_id);
+                        	        pstmt.setInt(2,movie_id);
+                                	ResultSet rs2 = pstmt.executeQuery();
+                                	if(!(rs2.next())){      //if there is no link between star and movie
+                                        	String newstarmovie = "insert into stars_in_movies (star_id,movie_id) values('" + star_id + "','" + movie_id +"');";
+                                        	stmt.executeUpdate(newstarmovie);
+                                	}	
+                        	}	
+                        	else{                           //if star doesnot exist
+                                	String arr[] = star.split(" ");
+                                	String columns="(first_name,last_name)";
+                                	String values;
+                                	if(arr.length>1)
+                                        	values="(\""+arr[0]+"\",";
+                                	else
+                                        	values="(\"\",";
+                                	values = values+"\""+arr[1]+"\")";
+                                	String newstar =  "insert into stars"  + " " + columns + " values " + values +";";
+                                	stmt.executeUpdate(newstar);
+                                	String query = "select last_insert_id()";
+                                	ResultSet rsid = stmt.executeQuery(query);
+                                	if(rsid.next()){
+                                        	int star_id = rsid.getInt(1);
+                                        	String newstarmovie = "insert into stars_in_movies (star_id,movie_id) values('" + star_id + "','" + movie_id +"');";
+                                        	stmt.executeUpdate(newstarmovie);
+                                	}	
+                        	}
+			}			
+		}
+		
+	}
+	catch (SQLException ex) {
+                while (ex != null) {
+                        System.out.println ("SQL Exception:  " + ex.getMessage ());
+                        ex = ex.getNextException ();
+                }  // end while
+        }  // end catch SQLException
+
+        catch(java.lang.Exception ex){
+                System.out.println("<HTML>" +
+                            "<HEAD><TITLE>" +
+                            "MovieDB: Error" +
+                            "</TITLE></HEAD>\n<BODY>" +
+                            "<P>SQL error in doGet: " +
+                            ex.getMessage() + "</P></BODY></HTML>");
+        }
+	return count;
+    } 
+}

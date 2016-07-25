@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="reset.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href='//fonts.googleapis.com/css?family=Crete+Round' rel='stylesheet' type='text/css'>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+	$(document).ready(function(){
+	var div = $('body');
+
+	var backgrounds = new Array(
+    	//	'url(//wallpaper.zone/img/2669529.jpg)',
+	//	'url(//desktopbackgrounds4u.com/wp-content/gallery/lord-of-the-rings-wallpaper-hd/the-lord-of-the-rings-movie-hd-wallpaper-1920x1080-7260.jpg)',
+	//	'url(//wallpapercave.com/wp/jljHlsP.jpg)',
+		'url(https://images6.alphacoders.com/336/336244.jpg)'
+	);
+
+	var current = 0;
+	function nextBackground() {
+    		current++;
+    		current = current % backgrounds.length;
+    		div.css('background-image', backgrounds[current]);
+	}	
+	setInterval(nextBackground, 5000);
+	
+
+	div.css('background-image', backgrounds[0]);
+});
+</script>
+    <title>FabFlix</title>
+    
+</head>
+ 
+<body>
+
+	<header>
+		<div class="wrapper">
+		<h1 style="color:rgb(255,255,255)">FabFlix<span class="color">.</span></h1>
+		<nav>
+			<ul>
+				<li><a href="login.html" style="color:rgb(255,255,255)"><i class="material-icons">person</i>Logout</a></li>
+				<li><a href="Cart" style="color:rgb(255,255,255)"><i class="material-icons">shopping_cart</i>Cart</a></li>
+				<li><a href="Search.jsp" style="color:rgb(255,255,255)"><i class="material-icons">search</i>Search</a></li>
+				<li><a href="BrowseMain" style="color:rgb(255,255,255)"><i class="material-icons">folder</i>Browse</a></li>
+			</ul>
+		</nav>
+		</div>
+		
+	</header>
+	
+	<div class="hero-image" style="height=581px; padding-top=1px">
+		<br><br><br><br><br><br><br><br><br><br>
+		<h1 align="center" style="color:rgb(255,255,255); font-size:65px">Welcome to FabFlix!</h1>
+	</div>
+
+</body>
+</html>

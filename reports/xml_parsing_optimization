@@ -1,0 +1,5 @@
+Turn autocommit off: instead of writing to disk after every statement execution, nothing is written until a commit call is made. 
+
+Use of PreparedStatement: instead of making multiple SELECT calls, it is possible to use a single prepared statement utilizing a for loop in order to make it the correct length. This reduces the number of mysql calls.
+
+Batching inserts: by batching the insert calls, we reduce the number of mysql calls

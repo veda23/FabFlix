@@ -1,0 +1,18 @@
+A connection pool to the correct database was created and configured in tomcat.
+The Search.jsp passes search terms to Search servlet.
+In Search servlet, a preparedstatement is created using a connection from the pool.
+The search terms are inserted into the preparedstatement.
+The preparedstatement is passed to the MovieDisplay servlet which creates the web page.
+MovieDisplay passes the prepared statement to executeSQL
+executeSQL can handle preparedstatements, strings for querys and updates.
+executeSQL executes the preparedstatement using a connection from the pool.
+
+Original main AWS server modified to also act as load balancer.
+Apache2 server on original AWS instance load balances incoming connections.
+Depending on load will redirect clients to the server under the least load.
+One backend server is master, will accept both reads and writes.
+Only master backend server will recieve write requests.
+Slave backend server recieves only read requests.
+If a client has been connected to the master backend server by the load balancer, all read/write requests will be sent to master server.
+If a client has been connected to the slave server, only read requests will be sent to the slave server. Writes will be sent to the master server.
+Connection pooling allows scaling and consistent performance with larger numbers of clients.

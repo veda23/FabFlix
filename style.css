@@ -1,0 +1,615 @@
+html{
+	overflow: auto;
+}
+
+body {
+	background-color: #fff;
+	color: #777;
+	font: normal 15px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+p {
+	line-height: 20px;
+	margin-bottom: 20px;
+}
+
+h1 {
+	font-family: 'Crete Round', serif;
+	font-weight: bold;
+	color: #444;
+	font-size: 45px;
+	margin-bottom: 20px;
+}
+
+h2 {
+	font-family: 'Crete Round', serif;
+	font-weight: bold;
+	color: #444;
+	font-size: 45px;
+	text-align: right;
+	margin-bottom: 20px;
+}
+
+h3 {
+	font-family: 'Crete Round', serif;
+	font-size: 45px;
+	color: #444;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+h4 {
+	font-family: 'Crete Round', serif;
+	font-size: 24px;
+	color: #444;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+h5 {
+	font-size: 15px;
+	color: #444;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+a {
+	text-decoration: none;
+	color: #444;
+}
+
+a:hover {
+	color: #02b8dd;
+}
+
+strong {
+	font-weight: bold;
+}
+
+small {
+	font-size: 13px;
+	color: #777;
+	font-style: italic;
+}
+
+.clear {
+	clear: both;
+}
+
+.wrapper {
+	margin: 0 auto;
+	padding: 0 10px;
+	width: 940px;
+}
+
+header {
+	background: transparent;
+	height: 120px;
+}
+
+header h1 {
+	float: left;
+	margin-top: 32px;
+}
+
+header h1 .color {
+	color: #02b8dd;
+}
+
+header nav {
+	float: right;
+}
+
+header nav ul li {
+	float: left;
+	display: inline-block;
+	margin-top: 50px;
+}
+
+header nav ul li a {
+	color: #444;
+	text-transform: uppercase;
+	font-weight: bold;
+	display: block;
+	margin-right: 20px;
+}
+
+#hero-image {
+	background-size:100%;
+	position:relative;
+	height: 581px;
+	background: #e8eced url(http://desktopbackgrounds4u.com/wp-content/gallery/lord-of-the-rings-wallpaper-hd/the-lord-of-the-rings-movie-hd-wallpaper-1920x1080-7260.jpg) no-repeat center;
+
+
+}
+
+#hero-image h2 {
+		
+
+}
+
+.movingimages {
+	background: no-repeat center; 
+	height: 581px;
+	padding-top: 1px;
+}
+
+.button-1 {
+	display: block;
+	text-align: center;
+	background: #444;
+	border-radius: 3px;
+	color: #fff;
+	width: 180px;
+	height: 50px;
+	font-size: 20px;
+	line-height: 50px;
+	margin: 0 auto;
+}
+
+.button-1:hover {
+	background-color: #02b8dd;
+	color: #fff;
+}
+#image {
+	position: relative;
+        height: 581px;
+        padding-top: 1px;
+        background: #e8eced url(http://www.indietarot.com/wp-content/uploads/2014/07/indie-tarot-website-background2.jpg) no-repeat center;
+        
+
+}
+.login{
+        position: absolute;
+        top: calc(50% - 75px);
+        left: calc(50% - 50px);
+        height: 150px;
+        width: 350px;
+        padding: 10px;
+        z-index: 2;
+}
+
+.login input[type=text]{
+        width: 250px;
+        height: 30px;
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.6);
+        border-radius: 2px;
+        color: #fff;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 4px;
+}
+
+.login input[type=error]{
+        width: 250px;
+        height: 30px;
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 4px;
+}
+.login input[type=incorrect]{
+        background: transparent;
+        
+        color: red;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+}
+
+.login input[type=password]{
+        width: 250px;
+        height: 30px;
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.6);
+        border-radius: 2px;
+        color: #fff;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 4px;
+        margin-top: 10px;
+}
+
+.login input[type=submit]{
+        width: 260px;
+        height: 35px;
+        background: #fff;
+        border: 1px solid #fff;
+        cursor: pointer;
+        border-radius: 2px;
+        color: #a18d6c;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        padding: 6px;
+        margin-top: 10px;
+}
+
+.login input[type=submit]:hover{
+        opacity: 0.8;
+}
+
+.login input[type=submit]:active{
+        opacity: 0.6;
+}
+
+.login input[type=text]:focus{
+        outline: none;
+        border: 1px solid rgba(255,255,255,0.9);
+}
+
+.login input[type=password]:focus{
+        outline: none;
+        border: 1px solid rgba(255,255,255,0.9);
+}
+
+.login input[type=submit]:focus{
+        outline: none;
+}
+
+::-webkit-input-placeholder{
+   color: #fff;
+   font-weight: bold;
+}
+
+::-moz-input-placeholder{
+   color: #fff;
+   font-weight: bold;
+}
+
+.query{
+        position: absolute;
+        top: calc(50% - 75px);
+        left: calc(50% - 50px);
+        height: 150px;
+        width: 350px;
+        padding: 10px;
+        z-index: 2;
+}
+
+.query input[type=text]{
+        width: 250px;
+        height: 30px;
+        background: transparent;
+        border: 1px solid rgba(0,0,0,0.6);
+        border-radius: 2px;
+        color: #444;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 4px;
+}
+
+.query input[type=password]{
+        width: 250px;
+        height: 30px;
+        background: transparent;
+        border: 1px solid rgba(0,0,0,0.6);
+        border-radius: 2px;
+        color: #444;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 4px;
+        margin-top: 10px;
+}
+
+.query input[type=submit]{
+        width: 260px;
+        height: 35px;
+        background: #fff;
+        border: 1px solid #fff;
+        cursor: pointer;
+        border-radius: 2px;
+        color: #a18d6c;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        padding: 6px;
+        margin-top: 10px;
+}
+
+.query input[type=submit]:hover{
+        opacity: 0.8;
+}
+
+.query input[type=submit]:active{
+        opacity: 0.6;
+}
+
+.query input[type=text]:focus{
+        outline: none;
+        border: 1px solid rgba(0,0,0,0.9);
+}
+
+.query input[type=password]:focus{
+        outline: none;
+        border: 1px solid rgba(0,0,0,0.9);
+}
+
+.query input[type=submit]:focus{
+        outline: none;
+}
+
+table {
+	font-size: 18px;
+	font-family: 'Crete Round';
+	color: #444;
+	border: none;
+}
+
+table.center {
+	margin-left:auto;
+	margin-right:auto;
+}
+
+table th tr {
+	font-size:12px;
+	width: 180px;
+}
+
+.dashboard{
+        position: absolute;
+        top: calc(50% - 75px);
+        left: calc(42% - 30px);
+        height: 150px;
+        width: 350px;
+        padding: 10px;
+        z-index: 2;
+}
+
+.dashboard input[type=text]{
+        width: 250px;
+        height: 30px;
+        background: transparent;
+        border: 1px solid rgba(0,0,0,0.6);
+        border-radius: 2px;
+        color: #444;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 4px;
+}
+
+.dashboard input[type=password]{
+        width: 250px;
+        height: 30px;
+        background: transparent;
+        border: 1px solid rgba(0,0,0,0.6);
+        border-radius: 2px;
+        color: #444;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 4px;
+        margin-top: 10px;
+}
+
+.dashboard input[type=submit]{
+        width: 260px;
+        height: 35px;
+        background: #fff;
+        border: 1px solid #fff;
+        cursor: pointer;
+        border-radius: 2px;
+        color: #a18d6c;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        padding: 6px;
+        margin-top: 10px;
+}
+
+.dashboard input[type=error]{
+	text-align: center;
+        width: 250px;
+        height: 30px;
+        background: transparent;
+        border: none;
+        color: #444;
+        font-family: 'Crete Round', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 4px;
+}
+
+.dashboard input[type=submit]:hover{
+        opacity: 0.8;
+}
+
+.dashboard input[type=submit]:active{
+        opacity: 0.6;
+}
+
+.dashboard input[type=text]:focus{
+        outline: none;
+        border: 1px solid rgba(0,0,0,0.9);
+}
+
+.dashboard input[type=password]:focus{
+        outline: none;
+        border: 1px solid rgba(0,0,0,0.9);
+}
+
+.dashboard input[type=submit]:focus{
+        outline: none;
+}
+
+.dashboard1{
+        position: absolute;
+        top: calc(50% - 75px);
+        left: calc(42% - 30px);
+        height: 150px;
+        width: 350px;
+        padding: 10px;
+        z-index: 2;
+}
+
+.dashboard1 input[type=text]{
+        width: 250px;
+        height: 30px;
+        background: transparent;
+        border: 1px solid rgba(0,0,0,0.6);
+        border-radius: 2px;
+        color: #444;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 4px;
+}
+
+.dashboard1 input[type=password]{
+        width: 250px;
+        height: 30px;
+        background: transparent;
+        border: 1px solid rgba(0,0,0,0.6);
+        border-radius: 2px;
+        color: #444;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 4px;
+        margin-top: 10px;
+}
+
+.dashboard1 input[type=submit]{
+        width: 260px;
+        height: 35px;
+        background: #fff;
+        border: 1px solid #fff;
+        cursor: pointer;
+        border-radius: 2px;
+        color: #a18d6c;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        padding: 6px;
+        margin-top: 50px;
+}
+
+.dashboard1 input[type=error]{
+        width: 250px;
+        height: 30px;
+        background: transparent;
+        border: none;
+        color: #444;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 4px;
+}
+
+.dashboard1 input[type=submit]:hover{
+        opacity: 0.8;
+}
+
+.dashboard1 input[type=submit]:active{
+        opacity: 0.6;
+}
+
+.dashboard1 input[type=text]:focus{
+        outline: none;
+        border: 1px solid rgba(0,0,0,0.9);
+}
+
+.dashboard1 input[type=password]:focus{
+        outline: none;
+        border: 1px solid rgba(0,0,0,0.9);
+}
+
+.dashboard1 input[type=submit]:focus{
+        outline: none;
+}
+
+.dashboard2{
+        position: absolute;
+        top: calc(50% - 75px);
+        left: calc(42% - 30px);
+        height: 150px;
+        width: 350px;
+        padding: 10px;
+        z-index: 2;
+}
+
+.dashboard2 input[type=text]{
+        width: 250px;
+        height: 30px;
+        background: transparent;
+        border: 1px solid rgba(0,0,0,0.6);
+        border-radius: 2px;
+        color: #444;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 4px;
+}
+
+.dashboard2 input[type=password]{
+        width: 250px;
+        height: 30px;
+        background: transparent;
+        border: 1px solid rgba(0,0,0,0.6);
+        border-radius: 2px;
+        color: #444;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 4px;
+        margin-top: 10px;
+}
+
+.dashboard2 input[type=submit]{
+        width: 260px;
+        height: 35px;
+        background: #fff;
+        border: 1px solid #fff;
+        cursor: pointer;
+        border-radius: 2px;
+        color: #a18d6c;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        padding: 6px;
+        margin-top: 90px;
+}
+
+.dashboard2 input[type=error]{
+        width: 250px;
+        height: 30px;
+        background: transparent;
+        border: none;
+        color: #444;
+        font-family: 'Exo', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 4px;
+}
+
+.dashboard2 input[type=submit]:hover{
+        opacity: 0.8;
+}
+
+.dashboard2 input[type=submit]:active{
+        opacity: 0.6;
+}
+
+.dashboard2 input[type=text]:focus{
+        outline: none;
+        border: 1px solid rgba(0,0,0,0.9);
+}
+
+.dashboard2 input[type=password]:focus{
+        outline: none;
+        border: 1px solid rgba(0,0,0,0.9);
+}
+
+.dashboard2 input[type=submit]:focus{
+        outline: none;
+}
+

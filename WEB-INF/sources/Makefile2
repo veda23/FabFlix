@@ -1,0 +1,4 @@
+PATH = ".:../lib/mysql-connector-java-5.0.8-bin.jar:../lib/servlet-api.jar"
+all: Search.class
+Search.class: Search.java
+	/usr/bin/javac -classpath $(PATH) Search.java -d ../classes

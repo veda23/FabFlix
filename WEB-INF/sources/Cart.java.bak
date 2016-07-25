@@ -1,0 +1,223 @@
+//package New;
+
+//import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+
+/**
+ * Servlet implementation class Cart
+ */
+
+//Import required java libraries
+import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+import javax.servlet.*;
+//import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+
+
+//Extend HttpServlet class
+//@WebServlet("/Cart")
+public class Cart extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private String message,init,style;
+	LinkedList<Movie> list=new LinkedList<Movie>();
+	LinkedList<Movie> sessionlist=new LinkedList<Movie>();
+	String cost="$10";
+	int price=10;
+	int total=0;
+	int items=0;
+
+	public void init() throws ServletException
+	{
+		// Do required initialization
+		//style= "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">";
+	
+		message = "Your Cart";
+		init="<form action=\"CheckOut\" method=\"get\">"+
+		"<br><center><input type=\"submit\" name=\"action\" value=\"Checkout\" align=\"bottom\"></center>"+
+		"</form>"+
+		"<form action=\"CartControl\" method=\"get\">"+
+		"<br><center><input type=\"submit\" name=\"action\" value=\"Empty Cart\" align=\"bottom\" > ";
+		items=0;
+		total=0;
+	}
+
+	public void doGet(HttpServletRequest request,
+			HttpServletResponse response)
+					throws ServletException, IOException
+	{
+		String loginUser = "root";
+		String loginPasswd = "root";
+		String loginUrl = "jdbc:mysql:///moviedbtemp";
+		String title="";
+		String director="";
+		int year=0000;
+		String banner="";
+		String trailer="";
+
+		response.setContentType("text/html");    // Response mime type
+
+		// Output stream to STDOUT
+		PrintWriter out = response.getWriter();
+		
+
+		try
+		{
+			Class.forName("org.gjt.mm.mysql.Driver");
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+			Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+			//Statement statement = dbcon.createStatement();
+
+			String movieid = request.getParameter("id");
+			//String movieid= "908";
+			String query="select * from movies where id=?";
+			PreparedStatement ps= dbcon.prepareStatement(query);
+			ps.setString(1, movieid);
+			//ps.setInt(1, 905);
+			ResultSet result=ps.executeQuery();
+			
+			out.println("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"reset.css\"><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"><link href=\"http://fonts.googleapis.com/css?family=Crete+Round\" rel=\"stylesheet\" type=\"text/css\"><link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\"><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"> <title>FabFlix</title></head><body><header><div class=\"wrapper\"><h1>FabFlix<span class=\"color\">.</span></h1> <nav><ul><li><a href=\"login.html\"><i class=\"material-icons\">person</i>Login</a></li><li><a href=\"Cart\"><i class=\"material-icons\">shopping_cart</i>Cart</a></li><li><a href=\"Search.jsp\"><i class=\"material-icons\">search</i>Search</a></li><li><a href=\"BrowseMain\"><i class=\"material-icons\">folder</i>Browse</a></li></ul></nav></div></header>");
+
+                	out.println("<div id=\"image\">");
+			out.println("<body><center><h1>" + message + "</h1></center><p>Your Cart contains:</p></body>");
+
+						
+			HttpSession session=request.getSession();
+			if(session.getAttribute("list")==null){
+				if(movieid==null){
+					out.println("<p>Your Cart is empty!</p>");
+				}
+				else{
+					LinkedList<Movie> newlist=new LinkedList<Movie>();
+					
+					session.setAttribute("list", newlist);
+					while(result.next()){
+
+						title=result.getString("title");
+						out.println("<p>"+title+"</p>");
+						
+						banner=result.getString("banner_url");
+						out.println("<p><img src ="+"banner"+"/></p>");
+					}	
+					Movie m=new Movie(title,trailer,movieid);
+
+					AddToList(m,session,out);
+					out.println("<div><p><table><tr><td>Movie</td><td>Price</td><td>Quantity</td></tr></table></div>");
+					print(list,out);
+					//String feedback= request.getParameter("Quantity");
+					//System.out.println(feedback);
+				}
+				
+			}
+			else
+			{
+				list=(LinkedList<Movie>)session.getAttribute("list");
+				
+
+				//out.println("<table></table>");
+
+				while(result.next()){
+
+					title=result.getString("title");
+					out.println("<p>"+title+"</p>");
+					
+					banner=result.getString("banner_url");
+					out.println("<p><img src ="+"banner"+"/></p>");
+					
+
+					Movie m=new Movie(title,banner,movieid);
+
+					AddToList(m,session,out);
+					out.println("<div><p><table><tr><td>Movie</td><td>Price</td><td>Quantity</td></tr></table></div>");
+					print(list,out);
+					//String feedback= request.getParameter("Quantity");
+					//System.out.println(feedback);
+				}
+			}
+		//out.println("<p>Total no. of items in cart="+ items +"</p><p>Total price="+total+"</p>");
+			out.println("<p>"+init+"</p>");
+			//String action=request.getParameter("action");
+			System.out.println(action);
+			if(action.equals("Checkout")){
+				RequestDispatcher rd=request.getRequestDispatcher("CheckOut");
+				rd.forward(request, response);
+			}
+			if(action.equals("Empty Cart")){
+				items=0;
+				total=0;
+				RequestDispatcher rd1=request.getRequestDispatcher("CartControl");
+				rd1.forward(request, response);
+			}
+			if(session!=null){
+				session=null;
+				session.invalidate();
+				items=0;
+				total=0;
+			}
+			out.println("<p>Total no. of items in cart="+ items +"</p><p>Total price="+total+"</p>");
+			//out.println("<p>"+init+"</p>");
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+
+
+	}
+
+	public void AddToList(Movie movie,HttpSession session,PrintWriter out){
+		if(session.getAttribute("list")!=null){
+			sessionlist=(LinkedList)session.getAttribute("list");
+			Iterator t=sessionlist.iterator();
+			while(t.hasNext()){
+				if(((Movie)t.next()).movieid==movie.movieid){
+				(((Movie)t.next()).count)++;
+				session.setAttribute("list",sessionlist);
+				}
+				else{
+					list.add(movie);
+					session.setAttribute("list",list);
+					
+				}
+			}
+		}
+		
+		out.println("<p><"+movie.title+" has been added to your cart!</p></html>");
+		++items;
+		total=total+price;
+	}
+
+	public void print(LinkedList<Movie> list,PrintWriter out){
+		Iterator t=list.iterator();
+		
+		/*out.println("<br><right><select name=\"Quantity\">"+
+				"<option value=\"1\">1</option>"+
+				"<option value=\"2\">2</option>"+
+				"<option value=\"3\">3</option>"+
+				"<option value=\"4\">4</option>"+
+				"<option value=\"5\">5</option>"+
+				"<option value=\"6\">6</option>"+
+				"<option value=\"7\">7</option>"+
+				"<option value=\"8\">8</option>"+
+				"<option value=\"9\">9</option>"+
+				"<option value=\"10\">10</option>"+
+				"</right></select>");
+		out.println("<input= \"hidden\" name=\"Quantity\">");
+		*/
+		while(t.hasNext()){
+
+			out.println("<table><tr><td>"+ ((Movie)t.next()).title+"</td><td>"+price+"</td><td>"+((Movie)t.next()).count+"</tr></table></p>");
+			//total+=price;
+
+		}
+
+	}
+
+}

@@ -1,0 +1,17 @@
+The .war file should contain the compiled classes and should run once deployed.
+
+If compling from .java classes:
+Given the mysql connector and servlet api's are in the lib folder, every .java file in the sources folder must be compiled as below:
+javac -d ../classes -classpath ".:../lib/mysql-connector.java-5.0.8-bin.jar:../lib/servlet-api.jar" classNameHere
+This should compile and output in the correct location. 
+Once compilation is done, the tomcat web application manager must be used to reload.
+
+IP of Master: 52.39.9.51
+IP of Slave: 52.24.188.189
+
+For running the file for average search time measurement:
+Parse.java is located at the root of this directory(/FabFlix)
+Modify the value of file to be parsed in the code.
+catalina1.1.out is provided in the same location as an example of the log file to be parsed.
+Compile the java file using > sudo javac Parse.java
+Run using >sudo java Parse

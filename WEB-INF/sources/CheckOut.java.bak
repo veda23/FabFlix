@@ -1,0 +1,60 @@
+
+/* A servlet to display the contents of the MySQL movieDB database */
+
+import java.io.*;
+import java.net.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class CheckOut extends HttpServlet
+{
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws IOException, ServletException
+    {
+	//get list from session
+	response.setContentType("text/html");
+	PrintWriter out = response.getWriter();
+	HttpSession session = request.getSession(false);
+	LinkedList<Movie> cart = (LinkedList)session.getAttribute("list");
+	String fn = request.getParameter("first_name");
+	String ln = request.getParameter("last_name");
+	String cc = request.getParameter("cc");
+	String ex = request.getParameter("exp");
+	String q = "SELECT * FROM creditcards WHERE first_name='"+fn+"' AND last_name='"+ln+"' AND id='"+cc+"' AND expiration='"+ex+"'";
+	java.util.Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//	out.println("<p>"+query+"</p>");
+	try{
+		ResultSet rs = executeSQL.execute(q);
+		if(!rs.next()){
+			//out.println("<center>Error: Payment information does not exist</center>");
+			session.setAttribute("error","cc_error");
+			//getServletContext().getRequestDispatcher("/Checkout.jsp").forward(request,response);
+			out.println("<meta http-equiv=\"refresh\" content=\"0;"+request.getContextPath()+"/Checkout.jsp\"/>");
+		}
+		else{
+			ResultSet rs2 = executeSQL.execute("SELECT * FROM customers where cc_id="+rs.getString("id"));
+			rs2.next();
+			out.println("<center><h1>Purchase Summary<h1><br>");
+			for(int i = 0; i<cart.size();i++){
+				//for(int j=0;j<cart.get(i).number;j++){
+					String query = "INSERT INTO sales (customer_id,movie_id,sale_date) VALUES ('"+ rs2.getString("id") + "','"+cart.get(i).movieid+"','"+sdf.format(date)+"')";
+					out.println(query);
+					out.println(cart.get(i).title+"<br>");
+					executeSQL.update(query);
+					session.setAttribute("list",new LinkedList<Movie>());	
+				//}
+				
+			}
+			out.println("</center>");
+			//for loop to add to sales table
+		}
+	}catch(SQLException e){
+		e.getNextException();	
+	}	
+    }
+}

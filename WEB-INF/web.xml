@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  Copyright 2004 The Apache Software Foundation
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+    <display-name>Search and Browsing for FabFlix</display-name>
+    <description>
+      Search and browse implementation
+    </description>
+
+
+  <!-- Define servlets that are included in the example application -->
+
+    <welcome-file-list>
+        <welcome-file>welcome.html</welcome-file>
+  </welcome-file-list>
+
+  <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>Login</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+        <servlet-name>Main</servlet-name>
+        <servlet-class>Main</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+        <servlet-name>Main</servlet-name>
+        <url-pattern>/Main</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>CartServlet</servlet-name>
+    <servlet-class>Cart</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CartServlet</servlet-name>
+    <url-pattern>/Cart</url-pattern>
+  </servlet-mapping>
+
+
+
+  <servlet>
+    <servlet-name>BrowseServlet</servlet-name>
+    <servlet-class>Browse</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BrowseServlet</servlet-name>
+    <url-pattern>/Browse</url-pattern>
+  </servlet-mapping>
+ 
+ <servlet>
+    <servlet-name>BrowseMainServlet</servlet-name>
+    <servlet-class>BrowseMain</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BrowseMainServlet</servlet-name>
+    <url-pattern>/BrowseMain</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>SearchServlet</servlet-name>
+    <servlet-class>Search</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchServlet</servlet-name>
+    <url-pattern>/Search</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>getMovieServlet</servlet-name>
+    <servlet-class>getMovie</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getMovieServlet</servlet-name>
+    <url-pattern>/getMovie</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>getStarServlet</servlet-name>
+    <servlet-class>getStar</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getStarServlet</servlet-name>
+    <url-pattern>/getStar</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>CheckoutServlet</servlet-name>
+    <servlet-class>CheckOut</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheckoutServlet</servlet-name>
+    <url-pattern>/checkout</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>CheckCCServlet</servlet-name>
+    <jsp-file>/Checkout.jsp</jsp-file>
+    <init-param>
+      <param-name>error</param-name>
+      <param-value>0</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheckCCServlet</servlet-name>
+    <url-pattern>/Checkout.jsp</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>CControlServlet</servlet-name>
+	<servlet-class>CartControl</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>CControlServlet</servlet-name>
+	<url-pattern>/CartControl</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>CartControlServlet</servlet-name>
+	<servlet-class>CartMod</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>CartControlServlet</servlet-name>
+	<url-pattern>/CartMod</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>Employee</servlet-name>
+	<jsp-file>/dashboardwelcome.html</jsp-file>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>Employee</servlet-name>
+	<url-pattern>/_dashboard</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>EmployeeLogin</servlet-name>
+	<servlet-class>EmployeeLogin</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>EmployeeLogin</servlet-name>
+	<url-pattern>/EmployeeLogin</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>DashboardServlet</servlet-name>
+	<servlet-class>Dashboard</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>DashboardServlet</servlet-name>
+	<url-pattern>/Dashboard</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>AddStarServlet</servlet-name>
+	<servlet-class>AddStar</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>AddStarServlet</servlet-name>
+	<url-pattern>/AddStar</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>AddMovieServlet</servlet-name>
+	<servlet-class>AddMovie</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>AddMovieServlet</servlet-name>
+	<url-pattern>/AddMovie</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>MetadataServlet</servlet-name>
+	<servlet-class>Metadata</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>MetadataServlet</servlet-name>
+	<url-pattern>/Metadata</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>AndroidLogin</servlet-name>
+	<servlet-class>AndroidLogin</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>AndroidLogin</servlet-name>
+	<url-pattern>/AndroidLogin</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>DropDownPage</servlet-name>
+	<servlet-class>DropDown</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>DropDownPage</servlet-name>
+	<url-pattern>/DropDown</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>AndroidSearch</servlet-name>
+	<servlet-class>AndroidSearch</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>AndroidSearch</servlet-name>
+	<url-pattern>/AndroidSearch</url-pattern>
+</servlet-mapping>
+
+<filter>
+	<filter-name>LoginFilter</filter-name>
+        <filter-class>LoginFilter</filter-class>
+</filter>
+
+<filter-mapping>
+	<filter-name>LoginFilter</filter-name>
+        <url-pattern>/Checkout.jsp</url-pattern>
+        <url-pattern>/checkout</url-pattern>
+        <url-pattern>/Cart</url-pattern>
+</filter-mapping>
+
+<filter>
+	<filter-name>EmployeeFilter</filter-name>
+	<filter-class>EmployeeFilter</filter-class>
+</filter>
+
+<filter-mapping>
+	<filter-name>EmployeeFilter</filter-name>
+	<url-pattern>/dashboardmain.html</url-pattern>
+</filter-mapping>		
+<filter-mapping>
+	<filter-name>EmployeeFilter</filter-name>
+	<url-pattern>/Dashboard</url-pattern>
+</filter-mapping>		
+
+<filter>
+	<filter-name>LogFilter</filter-name>
+	<filter-class>LogFilter</filter-class>
+</filter>
+<filter-mapping>
+	<filter-name>LogFilter</filter-name>
+	<url-pattern>/Search</url-pattern>
+</filter-mapping>
+
+<security-constraint>
+ <web-resource-collection>
+    <web-resource-name>HTTPSOnly</web-resource-name>
+    <url-pattern>/Search.jsp</url-pattern>
+ </web-resource-collection>
+ <user-data-constraint>
+    <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+ </user-data-constraint>
+</security-constraint>
+
+
+<resource-ref>
+	<description> DB Connection Pooling</description>
+	<res-ref-name> jdbc/moviedb</res-ref-name>
+	<res-type> javax.sql.DataSource</res-type>
+	<res-auth> Container</res-auth>
+</resource-ref>
+
+
+
+
+
+
+
+
+</web-app>
